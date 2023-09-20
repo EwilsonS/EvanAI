@@ -1,0 +1,35 @@
+{
+    "first_name":"Emily",
+    "last_name": "Smith",
+    "age":"21",
+    "risk_tolerance": "aggressive",
+    "dependents":
+    [
+    ],
+    "marital_status":"single",
+    "employment_status":"employed",
+    "income":
+    [
+        {"type" : "salary", "amount":"78000", "time_period": "year"}
+    ],
+    "rent":"1000",
+    "assets":
+    [
+        {"type":"savings", "amount":"3000"},
+        {"type":"checking", "amount":"1000"},
+        {"type":"401(k)","amount":"700"}
+    ],
+    "debts":
+    [
+        {"credit_card":"2000"},
+        {"student_loan":"45000"}
+    ],
+    "monthly_expenses":
+    [
+        {"gas":"100"},
+        {"phone":"40"},
+        {"utilities":"80"},
+        {"groceries":"400"},
+        {"other":"800"}
+    ]
+}

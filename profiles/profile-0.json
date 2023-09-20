@@ -1,0 +1,56 @@
+{
+    "first_name":"Juan",
+    "last_name":"Martinez",
+    "age":"27",
+    "risk_tolerace": "aggressive",
+    "dependents":
+    [
+    ],
+    "marital_status":"married",
+    "spouse":"Juanita",
+    "employment_status":"employed",
+    "income":
+    [
+        {"type": "salary", "amount":"250000", "time_period": "year"},
+        {"type": "salary", "amount":"125000", "time_period": "year"}
+    ],
+    "rent":"1500",
+    "assets":
+    [
+        {"type":"savings", "amount":"20000"},
+        {"type":"checking", "amount":"1000"},
+        {"type":"401(k)","amount":"100000"},
+        {"type":"home_equity", "amount":"15000"}
+    ],
+    "debts":
+    [
+        {"credit_card":"3000"},
+        {"loans":
+            [
+                {
+                    "type":"car_payment",
+                    "monthly_payment":"700",
+                    "principal":"50000"
+                },
+                {
+                    "type":"car_payment",
+                    "monthly_payment":"500",
+                    "principal":"30000"
+                },
+                {
+                    "type":"mortgage",
+                    "monthly_payment":"2500",
+                    "principal":"500000"
+                }
+            ]
+        }
+    ],
+    "monthly_expenses":
+    [
+        {"gas":"200"},
+        {"phone":"150"},
+        {"utilities":"400"},
+        {"entertainment":"1000"}
+    ]
+
+}

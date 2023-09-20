@@ -1,0 +1,3 @@
+--ignore-directory=is:client/dist
+--ignore-directory=is:.mypy_cache/
+--ignore-directory=is:venv/

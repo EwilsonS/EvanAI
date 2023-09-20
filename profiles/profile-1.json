@@ -1,0 +1,40 @@
+{
+    "first_name":"Jane",
+    "last_name":"Doe",
+    "age":"33",
+    "risk_tolerance": "moderate",
+    "dependents":
+    [
+        {"relationship":"son", "age":"10"},
+        {"relationship":"daughter", "age":"8"}
+    ],
+    "marital_status":"single",
+    "employment_status":"employed",
+    "income":
+    [
+        {"type": "salary", "amount":"75000", "time_period": "year"}
+    ],
+    "mortgage":"0",
+    "rent":"1500",
+    "car_payments":"400",
+    "assets":
+    [
+        {"type":"savings", "amount":"10000"},
+        {"type":"checking", "amount":"1000"},
+        {"type":"401(k)","amount":"30000"},
+        {"type":"529 college account", "amount":"5000"}
+    ],
+    "debts":
+    [
+        {"credit_card":"1500"},
+        {"student_loan":"50000"}
+    ],
+    "monthly_expenses":
+    [
+        {"gas":"100"},
+        {"phone":"75"},
+        {"utilities":"200"},
+        {"childcare":"800"}
+    ]
+
+}

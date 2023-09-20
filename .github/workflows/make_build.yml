@@ -1,0 +1,29 @@
+---
+name: make build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install
+        run: |
+          npm install
+      - name: eslint
+        run: |
+          npx eslint . --ignore-pattern venv --ignore-pattern htmlcov --ignore-pattern client/dist
+      - name: standardjs
+        run: |
+          npx standard
+      - name: make build
+        run: |
+          make build

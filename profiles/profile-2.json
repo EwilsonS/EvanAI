@@ -1,0 +1,50 @@
+{
+    "first_name":"John",
+    "last_name": "Doe",
+    "age":"67",
+    "risk_tolerance": "conservative",
+    "dependents":
+    [
+    ],
+    "marital_status":"single",
+    "employment_status":"retired",
+    "income":
+    [
+        {"type" : "pension", "amount":"20000", "time_period": "year"},
+        {"type": "social_security", "amount":"12000", "time_period": "year"},
+        {"type": "side_hustle", "amount":"5000", "time_period": "year"}
+    ],
+    "rent":"0",
+    "assets":
+    [
+        {"type":"savings", "amount":"20000"},
+        {"type":"checking", "amount":"1000"},
+        {"type":"401(k)","amount":"300000"},
+        {"type":"IRA", "amount":"150000"},
+        {"type":"stocks","amount":"100000"},
+        {"type": "home_equity", "amount":"750000"}
+    ],
+    "debts":
+    [
+        {"credit_card":"1000"},
+        {"loans":
+            [
+                {
+                    "type":"mortgage",
+                    "monthly_payment":"700",
+                    "principal":"10000"
+                }
+            ]
+        },
+        {"medical_debt":"10000"}
+    ],
+    "monthly_expenses":
+    [
+        {"gas":"100"},
+        {"phone":"75"},
+        {"utilities":"200"},
+        {"childcare":"800"}
+    ],
+    "notes":"John has an elderly parent from whom he expects to inherit about $500k."
+
+}
