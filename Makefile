@@ -12,14 +12,6 @@ default: help
 
 .PHONY: init_hooks test
 
-# npm install dependencies if package.json or package-lock.json changes
-client/node_modules: client/package.json client/package-lock.json
-	cd client && npm install && cd ..
-
-# npm install dependencies if package.json or package-lock.json changes
-node_modules: package.json package-lock.json
-	npm install
-
 # Init the virtual environment and install requirements
 $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 	python3.11 -m venv $(VENV) || python3.10 -m venv $(VENV) || python3.9 -m venv $(VENV) || python3 -m venv $(VENV)
@@ -27,7 +19,7 @@ $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 	$(PIP) install -r requirements-dev.txt
 
 # Activate the virtual environment
-venv: $(VENV)/bin/activate node_modules client/node_modules
+venv: $(VENV)/bin/activate
 
 # init git pre-commit hooks
 $(VENV)/bin/pre-commit: venv .pre-commit-config.yaml
@@ -36,12 +28,8 @@ $(VENV)/bin/pre-commit: venv .pre-commit-config.yaml
 
 init_hooks: venv $(VENV)/bin/pre-commit
 
-# build svelte front end
-build:
-	cd client && npm install && npm run build && cd ..
-
 # Run app
-run: build venv $(VENV)/bin/pre-commit
+run: venv $(VENV)/bin/pre-commit
 	PYTHONPATH=. $(PYTHON) -m uvicorn app:app --reload --port $(PORT)
 
 # Run tests
@@ -88,8 +76,6 @@ clean:
 # Clean up Python artifacts and virtual environment
 real_clean: clean
 	rm -rf $(VENV)
-	rm -rf node_modules
-	rm -rf client/node_modules
 
 # Show help
 help:
