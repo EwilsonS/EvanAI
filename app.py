@@ -231,7 +231,7 @@ def prepare_conversation(
 
 # Define the route for generating a response using the OpenAI API
 # The route accepts POST requests
-@app.post("/generate", dependencies=[Depends(get_current_user)])
+@app.post("/generate")
 def generate(data: ConversationData) -> JSONResponse:
     """Generate ChatGPT recommendation"""
     messages = prepare_conversation(data.profile_id, data.history, data.agent)
@@ -311,11 +311,7 @@ my_custom_functions = [
 
 # Define the route for generating a response using the OpenAI API
 # The route accepts POST requests
-@app.post(
-    "/generate-stream",
-    response_class=StreamingResponse,
-    dependencies=[Depends(get_current_user)],
-)
+@app.post("/generate-stream", response_class=StreamingResponse)
 def generate_stream(data: ConversationData) -> StreamingResponse:
     """Generate ChatGPT recommendation"""
     messages = prepare_conversation(data.profile_id, data.history, data.agent)
@@ -363,7 +359,7 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
 
 
 # Route for fetching saved user profiles
-@app.get("/profiles", dependencies=[Depends(get_current_user)])
+@app.get("/profiles")
 def send_profiles_info() -> JSONResponse:
     """Send profile information"""
     info = {}
@@ -378,7 +374,7 @@ def send_profiles_info() -> JSONResponse:
 
 
 # Route for generating profile summary
-@app.post("/summary", dependencies=[Depends(get_current_user)])
+@app.post("/summary")
 def summarize(profile: UserProfile) -> JSONResponse:
     """Summarize financial profile with ChatGPT"""
     content = (
@@ -400,7 +396,7 @@ def summarize(profile: UserProfile) -> JSONResponse:
 
 
 # Route for savings conversation history
-@app.post("/save_history", dependencies=[Depends(get_current_user)])
+@app.post("/save_history")
 def save_history(data: History) -> JSONResponse:
     """Save conversation history to file"""
     history = data.history
@@ -474,7 +470,7 @@ def score_conversation(data: ConversationData):
     return JSONResponse(content=json_response, status_code=200)
 
 
-@app.get("/get-system-card-list", dependencies=[Depends(get_current_user)])
+@app.get("/get-system-card-list")
 def get_system_card_list():
     try:
         directory_path = os.path.join(os.getcwd(), "agents")
@@ -489,7 +485,7 @@ def get_system_card_list():
         return JSONResponse(content=str(ex), status_code=500)
 
 
-@app.post("/read-system-card/{file_name}", dependencies=[Depends(get_current_user)])
+@app.post("/read-system-card/{file_name}")
 def read_system_card(file_name: str) -> JSONResponse:
     try:
         directory_path = os.path.join(os.getcwd(), "agents", file_name)
@@ -507,7 +503,7 @@ def read_system_card(file_name: str) -> JSONResponse:
         return JSONResponse(content=str(ex), status_code=500)
 
 
-@app.put("/update-system-card", dependencies=[Depends(get_current_user)])
+@app.put("/update-system-card")
 def update_system_card(updated_data: UpdateSystemCardData) -> JSONResponse:
     try:
         directory_path = os.path.join(os.getcwd(), "agents", updated_data.file_name)
