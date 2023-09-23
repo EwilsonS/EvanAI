@@ -123,7 +123,6 @@ FIN_GENIE_CORS_ORIGINS = os.environ.get(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=FIN_GENIE_CORS_ORIGINS,
-    allow_origin_regex=r"https://fingenie-23c88--pr.*\.web\.app",  # allow all preview domains
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -145,12 +144,6 @@ def get_system_card(agent: str | None = ""):
 # Read the content of the "syscard_scoring.txt" file
 with open("syscard_scoring.txt", "r", encoding="UTF-8") as file:
     syscard_scoring = file.read()
-
-
-# load anchor configs
-ANCHOR_CONFIGS = []
-with open("anchor_config.yaml", "r", encoding="UTF8") as file:
-    ANCHOR_CONFIGS = yaml.safe_load(file)
 
 
 def num_tokens_from_messages(messages, model=MODEL_NAME):
@@ -246,12 +239,11 @@ def generate(data: ConversationData) -> JSONResponse:
         temperature=0.3333333333333333,
     )
     response_time = datetime.now().timestamp() - start_time.timestamp()
-    # Extract the generated AI message from the response
-    ai_message = wrap_urls(
-        response["choices"][0]["message"]["content"].strip(), ANCHOR_CONFIGS
-    )
     json_response = jsonable_encoder(
-        {"message": ai_message, "response_time": response_time}
+        {
+            "message": response["choices"][0]["message"]["content"].strip(),
+            "response_time": response_time,
+        }
     )
     # Return the AI message as a JSON response
     return JSONResponse(content=json_response, status_code=200)
