@@ -249,58 +249,6 @@ def generate(data: ConversationData) -> JSONResponse:
     return JSONResponse(content=json_response, status_code=200)
 
 
-def extract_auto_loan_info(lang):
-    match lang:
-        case "es":
-            return (
-                "Tasas de préstamos para automóviles hoy \n\n Hasta 60 meses: \n"
-                + "nuevos 6,29 % \n usados 6,49 % \n refinanciamiento 7,29 %"
-            )
-        case "fr":
-            return (
-                "Taux des prêts automobiles aujourd'hui \n\n Jusqu'à 60 mois : \n"
-                + "Nouveau 6,29 % \n Utilisé 6,49 % \n Refinancement 7,29 %"
-            )
-        case _:
-            return "Auto Loan Rates Today \n\n Up to 60 months: \n New  6.29% \n Used  6.49% \n Refinance  7.29%"
-
-
-def extract_bank_mortgage_info(lang):
-    match lang:
-        case "es":
-            return (
-                "Tasas hipotecarias actuales: \n Fijo a 30 años 7,500 % \n"
-                + "Fijo a 15 años 7,000 % \n ARM a 5 años 6,875 %"
-            )
-        case "fr":
-            return (
-                "Taux hypothécaires actuels: \n Fixe sur 30 ans 7,500 % \n"
-                + "Fixe sur 15 ans 7,000 % \n ARM sur 5 ans 6,875 %"
-            )
-        case _:
-            return "Mortgage Rates Today: \n 30-year fixed  7.500% \n 15-year fixed 7.000% \n 5-year ARM 6.875%"
-
-
-my_custom_functions = [
-    {
-        "name": "extract_bank_mortgage_info",
-        "description": 'Get "Mortgage rate"',
-        "parameters": {
-            "type": "object",
-            "properties": {},
-        },
-    },
-    {
-        "name": "extract_auto_loan_info",
-        "description": 'Get "Auto Loan rate"',
-        "parameters": {
-            "type": "object",
-            "properties": {},
-        },
-    },
-]
-
-
 # Define the route for generating a response using the OpenAI API
 # The route accepts POST requests
 @app.post("/generate-stream", response_class=StreamingResponse)
@@ -316,35 +264,15 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
         n=1,
         temperature=0.3333333333333333,
         stream=True,
-        functions=my_custom_functions,
-        function_call="auto",
     )
 
     async def openai_streamer(response):
         """Stream the response from OpenAI"""
         wrapped_chunks = {}
         for event in response:
-            if event["choices"][0]["delta"].get("function_call"):
-                # Executing for function
-                function_called = event["choices"][0]["delta"]["function_call"].get(
-                    "name"
-                )
-                if function_called == "extract_auto_loan_info":
-                    output = extract_auto_loan_info(data.language)
-                    yield output.encode()
-
-                elif function_called == "extract_bank_mortgage_info":
-                    output = extract_bank_mortgage_info(data.language)
-                    yield output.encode()
-
-            else:
-                if not event["choices"][0]["finish_reason"]:  # end of stream reached
-                    event_text = event["choices"][0]["delta"]["content"]
-                    chunk = event_text.strip(" .,;(){}!|'\"\n")  # removes punctuation
-                    if chunk not in wrapped_chunks:  # wrap the first occurrence
-                        event_text = wrap_urls(event_text, ANCHOR_CONFIGS)  # wrap urls
-                        wrapped_chunks[chunk] = True
-                    yield event_text.encode()
+            if not event["choices"][0]["finish_reason"]:  # end of stream reached
+                event_text = event["choices"][0]["delta"]["content"]
+                yield event_text.encode()
 
     # Return the AI message as a StreamingResponse
     return StreamingResponse(openai_streamer(response), media_type="text/event-stream")
