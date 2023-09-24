@@ -10,7 +10,6 @@ This is a simple web application that uses OpenAI's ChatGPT to generate response
 - OpenAI Python library
 - NodeJS 18.17.0 or higher
 - svelte
-- Firebase
 
 ## Installation
 
