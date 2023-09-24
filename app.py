@@ -117,12 +117,9 @@ def get_current_user(credentials: HTTPBasicCredentials = Depends(http_basic_auth
     return credentials.username
 
 
-FIN_GENIE_CORS_ORIGINS = os.environ.get(
-    "FIN_GENIE_CORS_ORIGINS", "http://localhost:5173"
-).split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=FIN_GENIE_CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
