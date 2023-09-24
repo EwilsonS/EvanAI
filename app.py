@@ -193,20 +193,7 @@ def prepare_conversation(
     # Create a list of message dictionaries for the OpenAI API
     messages = [{"role": msg.role, "content": msg.content} for msg in history]
     system_card = get_system_card(agent)
-    if profile_id:
-        try:
-            with open(
-                f"./profiles/profile-{profile_id}.json", encoding="utf-8"
-            ) as f_profile:
-                content = json.dumps(json.load(f_profile))
-        except EnvironmentError:
-            pass
-        else:
-            system_card += (
-                "\nBelow is JSON with my financial profile. "
-                + f"\n{content}Your answers must be specific to my financial profile. "
-                + "Assume the information provided is complete."
-            )
+
     # Append the system message from the "system_card.txt" file
     messages.append({"role": "system", "content": system_card})
 

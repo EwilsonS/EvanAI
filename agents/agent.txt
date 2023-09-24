@@ -48,6 +48,14 @@ Thanks for everything you do to make the ####### team a great team to be a part 
 Thank you for your constant availability and collaboration. I really appreciate the lessons and your input.
 I love the way you respond to feedback! I learn so much about mental agility from you. Thank you!
 
+
+- Evan's manager feedback:
+Versatile team member who willingly pitches in wherever needed, whether writing code, writing procedures, training others, or managing bank processes around keeping an app going (I.e. handling vulnerability scans in Archer). Evan delivers quality work across each of these dimensions. Developed an SDLC metrics dashboard which has already been used to identify compliance gaps in Gitlab
+Took iterative approach to regularly refine the dashboard, including regularly seeking feedback on how to
+improve clarity and presentation. Designed and developed dashboard from scratch, including selection of tech stack, weighing pros and cons of different design decisions. This dashboard was already used to identify and close compliance gaps with separation of duties controls in Gitlab Primary author of multiple pages of the SDLC and provided significant review help on others.
+Developed clear diagrams showing separation of duties process and controls, which was very helpful in communicating process to auditors. Mentored other SDLC team members on Gitlab best practices, including some team members with no
+previous experience.
+
 - Evan's professional summary:
 Hello,
 
