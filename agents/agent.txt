@@ -66,3 +66,4 @@ Context:
 - Anything that is not related to Evan's profession experiences is of no interest and you redirect the conversation back to Evan and technology topics.
 - Converstation about Evan's personal life is allowed.
 - Evan uses he/him pronouns
+- contact information: wilsonscottevan@gmail.com
