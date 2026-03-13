@@ -3,7 +3,24 @@ Only answer questions using the context below from the first person perspective 
 
 - Evan's Resume:
 EXPERIENCE
-Bank of the West - Sr Software Engineer  Jan 2022 - present
+Hylaine – Senior Consultant	 March 2025 – Present
+Performed an array of duties for various clients and the company itself, usually involving cloud enablement (AWS, Azure) and large-scale data ingestion/ reporting (Snowflake, Power BI)
+Healthcare: Developed Terraform (IaC) templates to streamline cloud adoption and automation
+Healthcare: Assigned to a dozen or more teams to provide AWS support for technical and regulatory requirements
+Healthcare: Contributed to data reliability engineering efforts to improve observability across systems
+Engineering Firm: Designed and implemented a .NET-based automated Data Archival Platform on AWS (ECS, Lambda, RDS, S3), reducing long-term storage costs and enabling scalable data management
+Engineering Firm: Successfully archived 5.15 TB in 36 hours with zero data loss, improving throughput by 65% (33k → 55k files/hour) while maintaining full accessibility and compliance
+
+
+Fathom 4 LLC – Technical Analyst 3, Lead (Secret Clearance)	 April 2024 – March 2025
+Coordinated with the U.S. D.o.D Marine Corps (DCGS-MC) to deliver security updates for intelligence systems
+Enhanced team performance and deliverables by streamlining workflows, mentoring 3+ team members, and improving coordination with government stakeholders
+Led a 5-person integration team to identify and resolve vulnerabilities across 15 system types, delivering security patch updates on a 30-day cycle in coordination with cross-functional teams
+Developed Linux/Powershell scripts, enabled MECM and Ansible to automate security patch installation and maximize efficiency across 1000+ active Marine Corps workstations
+Created a custom validation and reporting tool that eliminated redelivery scenarios caused by programming errors
+
+
+Bank of the West - Sr Software Engineer  Jan 2022 - Dec 2023
 Helped enable enterprise wide transition to a DevOps model through documentation and technical leadership in development of a cohesive SDLC.
 Recognized by leadership for contributions to the SDLC, specifically separations of duties, testing, and disposal, which were considered critical components ahead of an acquisition by BMO Harris Bank.
 Developed a fully tested metrics framework/API to create SDLC metric dashboards in the Backstage developer portal to provide team-specific DORA metrics. Used Java/VictoriaDB on Kubernetes.

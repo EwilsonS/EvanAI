@@ -39,7 +39,7 @@ logging.basicConfig(
 # Set the OpenAI API key from the environment variable
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-MODEL_NAME = "gpt-4o-mini"
+MODEL_NAME = "gpt-5-mini"
 MAX_RESPONSE_TOKENS = 640
 TOKEN_LIMIT = 16384
 
