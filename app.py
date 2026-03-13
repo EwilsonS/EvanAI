@@ -39,7 +39,7 @@ logging.basicConfig(
 # Set the OpenAI API key from the environment variable
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-MODEL_NAME = "gpt-5-mini"
+MODEL_NAME = os.environ.get("OPENAI_MODEL", "gpt-5-mini")
 MAX_RESPONSE_TOKENS = 640
 TOKEN_LIMIT = 16384
 
@@ -159,6 +159,8 @@ def num_tokens_from_messages(messages, model=MODEL_NAME):
         "gpt-4-32k-0314",
         "gpt-4-0613",
         "gpt-4-32k-0613",
+        "gpt-5-mini",
+        "gpt-5",
     }:
         tokens_per_message = 3
         tokens_per_name = 1
@@ -169,12 +171,18 @@ def num_tokens_from_messages(messages, model=MODEL_NAME):
         tokens_per_name = -1  # if there's a name, the role is omitted
     elif "gpt-3.5-turbo" in model:
         return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613")
+    elif "gpt-5" in model:
+        tokens_per_message = 3
+        tokens_per_name = 1
     elif "gpt-4" in model:
         return num_tokens_from_messages(messages, model="gpt-4-0613")
     else:
-        raise NotImplementedError(
-            f"""num_tokens_from_messages() is not implemented for model {model}."""
+        logging.warning(
+            "num_tokens_from_messages: unknown model %s; using cl100k_base heuristic",
+            model,
         )
+        tokens_per_message = 3
+        tokens_per_name = 1
     num_tokens = 0
     for message in messages:
         num_tokens += tokens_per_message
@@ -214,7 +222,7 @@ def generate(data: ConversationData) -> JSONResponse:
     """Generate ChatGPT recommendation"""
     messages = prepare_conversation(data.profile_id, data.history, data.agent)
 
-    # Call the OpenAI API to generate a response using the GPT-3.5-turbo model
+    # Call the OpenAI API to generate a response using the configured model
     start_time = datetime.now()
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
@@ -241,7 +249,7 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
     """Generate ChatGPT recommendation"""
     messages = prepare_conversation(data.profile_id, data.history, data.agent)
 
-    # Call the OpenAI API to generate a response using the GPT-3.5-turbo model
+    # Call the OpenAI API to generate a response using the configured model
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
         messages=messages,

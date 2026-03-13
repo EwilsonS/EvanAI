@@ -28,8 +28,17 @@ Before running the application, you need to set up your OpenAI API key as an env
 
 For Unix-based systems (Linux and macOS):
 
-    ```bash
-    export OPENAI_API_KEY="your_api_key_here"
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+## Model selection
+
+Set the model with `OPENAI_MODEL`. If not set, the app defaults to `gpt-5-mini`.
+
+```bash
+export OPENAI_MODEL="gpt-5-mini"
+```
 
 ## System card
 
