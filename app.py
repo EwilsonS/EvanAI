@@ -40,8 +40,8 @@ logging.basicConfig(
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 MODEL_NAME = os.environ.get("OPENAI_MODEL", "gpt-5-mini")
-MAX_RESPONSE_TOKENS = 640
-TOKEN_LIMIT = 16384
+MAX_RESPONSE_TOKENS = int(os.environ.get("OPENAI_MAX_COMPLETION_TOKENS", "2048"))
+TOKEN_LIMIT = int(os.environ.get("OPENAI_CONTEXT_LIMIT", "16384"))
 
 
 def get_max_tokens_arg(model: str, max_tokens: int) -> dict:
@@ -273,10 +273,10 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
 
     async def openai_streamer(response):
         """Stream the response from OpenAI"""
-        wrapped_chunks = {}
         for event in response:
-            if not event["choices"][0]["finish_reason"]:  # end of stream reached
-                event_text = event["choices"][0]["delta"]["content"]
+            delta = event["choices"][0].get("delta", {})
+            event_text = delta.get("content")
+            if event_text:
                 yield event_text.encode()
 
     # Return the AI message as a StreamingResponse
