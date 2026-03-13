@@ -50,6 +50,12 @@ def get_max_tokens_arg(model: str, max_tokens: int) -> dict:
     return {"max_tokens": max_tokens}
 
 
+def get_temperature_arg(model: str, temperature: float) -> dict:
+    if "gpt-5" in model:
+        return {}
+    return {"temperature": temperature}
+
+
 class Message(BaseModel):
     """Message model"""
 
@@ -235,7 +241,7 @@ def generate(data: ConversationData) -> JSONResponse:
         messages=messages,
         **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
-        temperature=0.3333333333333333,
+        **get_temperature_arg(MODEL_NAME, 0.3333333333333333),
     )
     response_time = datetime.now().timestamp() - start_time.timestamp()
     json_response = jsonable_encoder(
@@ -261,7 +267,7 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
         messages=messages,
         **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
-        temperature=0.3333333333333333,
+        **get_temperature_arg(MODEL_NAME, 0.3333333333333333),
         stream=True,
     )
 
@@ -307,7 +313,7 @@ def summarize(profile: UserProfile) -> JSONResponse:
         messages=messages,
         **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
-        temperature=0.2,
+        **get_temperature_arg(MODEL_NAME, 0.2),
     )
     return JSONResponse(
         content=response["choices"][0]["message"]["content"].strip(), status_code=200
@@ -363,7 +369,7 @@ def score_conversation(data: ConversationData):
         messages=messages,
         **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
-        temperature=0.2,
+        **get_temperature_arg(MODEL_NAME, 0.2),
     )
     pattern = r'"customer_satisfaction"\s*:\s*(\d+)'
     match = re.search(pattern, response["choices"][0]["message"]["content"].strip())
