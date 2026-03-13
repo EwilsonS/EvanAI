@@ -44,6 +44,12 @@ MAX_RESPONSE_TOKENS = 640
 TOKEN_LIMIT = 16384
 
 
+def get_max_tokens_arg(model: str, max_tokens: int) -> dict:
+    if "gpt-5" in model:
+        return {"max_completion_tokens": max_tokens}
+    return {"max_tokens": max_tokens}
+
+
 class Message(BaseModel):
     """Message model"""
 
@@ -227,7 +233,7 @@ def generate(data: ConversationData) -> JSONResponse:
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
         messages=messages,
-        max_tokens=MAX_RESPONSE_TOKENS,
+        **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
         temperature=0.3333333333333333,
     )
@@ -253,7 +259,7 @@ def generate_stream(data: ConversationData) -> StreamingResponse:
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
         messages=messages,
-        max_tokens=MAX_RESPONSE_TOKENS,
+        **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
         temperature=0.3333333333333333,
         stream=True,
@@ -299,7 +305,7 @@ def summarize(profile: UserProfile) -> JSONResponse:
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
         messages=messages,
-        max_tokens=MAX_RESPONSE_TOKENS,
+        **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
         temperature=0.2,
     )
@@ -355,7 +361,7 @@ def score_conversation(data: ConversationData):
     response = openai.ChatCompletion.create(
         model=MODEL_NAME,
         messages=messages,
-        max_tokens=MAX_RESPONSE_TOKENS,
+        **get_max_tokens_arg(MODEL_NAME, MAX_RESPONSE_TOKENS),
         n=1,
         temperature=0.2,
     )
